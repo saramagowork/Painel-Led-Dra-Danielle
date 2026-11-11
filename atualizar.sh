@@ -37,6 +37,7 @@ done
 echo "videos.js atualizado com ${#entries[@]} vídeo(s)."
 
 if [ "${1:-}" != "--sem-push" ]; then
+  git() { command git -c safe.directory="*" "$@"; }
   git add -A
   git commit -m "Atualiza vídeos do painel" || echo "Nada novo para publicar."
   git push
