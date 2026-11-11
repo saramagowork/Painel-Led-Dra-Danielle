@@ -38,12 +38,12 @@
     padding: 28px 16px 22px; display: flex; flex-direction: column; align-items: center;
   }
   .panel {
-    position: relative; width: 100%; max-width: 960px; aspect-ratio: 2 / 1;
-    background: #000; border: 10px solid #1a1a1a; border-radius: 4px;
-    box-shadow: 0 0 0 1px #2c2c2c, 0 24px 60px rgba(0,0,0,.6), 0 0 80px rgba(160,200,230,.06);
-    overflow: hidden;
+    /* A moldura é desenhada por fora (box-shadow), então a área do vídeo é exatamente 2:1 */
+    position: relative; width: calc(100% - 22px); max-width: 960px; aspect-ratio: 2 / 1;
+    margin: 11px; background: #000; flex-shrink: 0;
+    box-shadow: 0 0 0 10px #1a1a1a, 0 0 0 11px #2c2c2c, 0 24px 60px 10px rgba(0,0,0,.6), 0 0 80px rgba(160,200,230,.06);
   }
-  .panel.real { width: 980px; max-width: none; }
+  .panel.real { width: 960px; height: 480px; max-width: none; }
   .stage.scroll { overflow-x: auto; align-items: flex-start; }
   .panel video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; display: block; }
   .led-grid {
@@ -91,7 +91,7 @@
   .hint { color: var(--muted); font-size: 12px; margin-top: 18px; }
   kbd { font: 11px ui-monospace, monospace; border: 1px solid var(--line); border-radius: 4px; padding: 1px 5px; }
 
-  .panel:fullscreen { border: 0; max-width: none; width: 100vw; height: 100vh; aspect-ratio: auto; }
+  .panel:fullscreen { margin: 0; box-shadow: none; max-width: none; width: 100vw; height: 100vh; aspect-ratio: auto; }
 </style>
 </head>
 <body>
