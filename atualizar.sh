@@ -21,7 +21,8 @@ for src in "$RENDER_DIR"/*.mp4; do
   fi
   dur="$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$out")"
   secs="$(printf '%.0f' "$dur")"
-  entries+=("  { title: \"$title\", src: \"$out\", poster: \"videos/$slug.jpg\", duration: \"0:$(printf '%02d' "$secs")\" }")
+  ver="$(date -r "$out" +%s)"  # muda quando o render é refeito, para o navegador não usar a versão antiga
+  entries+=("  { title: \"$title\", src: \"$out?v=$ver\", poster: \"videos/$slug.jpg?v=$ver\", duration: \"0:$(printf '%02d' "$secs")\" }")
 done
 
 {

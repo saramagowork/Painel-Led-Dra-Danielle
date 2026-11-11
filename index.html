@@ -115,7 +115,7 @@
         <span class="time" id="time">0:00 / 0:00</span>
         <button class="ctl" id="btnPlay">Pausar</button>
         <button class="ctl" id="btnSound" aria-pressed="false">Som</button>
-        <button class="ctl" id="btnSeq" aria-pressed="false" title="Toca todos os vídeos em sequência">Sequência</button>
+        <button class="ctl" id="btnSeq" aria-pressed="false" title="Ligado: toca todos em sequência · Desligado: repete só o vídeo atual">Sequência</button>
         <button class="ctl" id="btnLed" aria-pressed="false" title="Simula a malha de pixels do painel">Malha LED</button>
         <button class="ctl" id="btnReal" aria-pressed="false" title="Mostra em 960×480 pixels reais">Tamanho real</button>
         <button class="ctl" id="btnFull">Tela cheia</button>
@@ -128,7 +128,8 @@
   <p class="hint"><kbd>Espaço</kbd> pausar · <kbd>←</kbd> <kbd>→</kbd> trocar vídeo · <kbd>F</kbd> tela cheia · <kbd>M</kbd> som</p>
 </main>
 
-<script src="videos.js"></script>
+<!-- Carrega a lista sempre atualizada (evita o navegador usar uma versão antiga do cache) -->
+<script>document.write('<script src="videos.js?v=' + Date.now() + '"><\/script>');</script>
 <script>
 (function () {
   var videos = window.VIDEOS || [];
@@ -148,7 +149,8 @@
     full: document.getElementById('btnFull')
   };
   var current = 0;
-  var sequence = false;
+  var sequence = videos.length > 1; // com vários vídeos, toca todos em sequência por padrão
+  btn.seq.setAttribute('aria-pressed', String(sequence));
 
   function fmt(s) {
     if (!isFinite(s)) s = 0;
